@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GB Clean Higienização de Estofados - Serviços de Limpeza Profissional</title>
+    <!-- Carrega o Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega a biblioteca de ícones Lucide --><script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Adiciona um preenchimento suave para as âncoras de navegação */
+        html {
+            scroll-padding-top: 88px; /* Altura aproximada do header (h-20 + py-4) */
+        }
+        /* Estilo para a animação do logo */
+        .logo-hover-effect {
+            transition: transform 0.3s ease-in-out;
+        }
+        .logo-hover-effect:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+
+    <!-- ===== Header / Navegação ===== --><nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center"> <!-- Padding py-4 ajustado --><!-- Logo --><a href="#home" class="flex items-center group">
+                <img src="images/logo.png" alt="Logo GB Clean" class="h-20 w-auto logo-hover-effect"> <!-- Logo h-20 (maior) --></a>
+            
+            <!-- Links Desktop --><div class="hidden md:flex space-x-6">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 transition-colors">Início</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition-colors">Serviços</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors">Como Funciona</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contato</a>
+            </div>
+            
+            <!-- CTA Desktop --><a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-semibold">
+                Agendar Agora
+            </a>
+
+            <!-- Botão Menu Mobile --><button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile (Dropdown) --><div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg pb-4">
+            <a href="#home" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Início</a>
+            <a href="#services" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Serviços</a>
+            <a href="#how-it-works" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Como Funciona</a>
+            <a href="#contact" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Contato</a>
+            <a href="#contact" class="block mx-6 mt-2 bg-blue-600 text-white text-center px-5 py-2 rounded-lg shadow hover:bg-blue-700">
+                Agendar Agora
+            </a>
+        </div>
+    </nav>
+
+    <!-- ===== Seção Hero ===== --><header id="home" class="relative h-screen flex items-center justify-center text-white text-center">
+        <!-- Overlay escuro --><div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+        <!-- Imagem de fundo --><div class="absolute inset-0 bg-cover bg-center" 
+             style="background-image: url('images/sofá.png');"> <!-- Caminho da imagem atualizado --></div>
+        
+        <!-- Conteúdo --><div class="relative z-20 p-6 max-w-3xl">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                Seus Estofados Limpos e Renovados com a GB Clean
+            </h1>
+            <p class="text-lg md:text-2xl mb-8">
+                Especialistas em higienização de estofados para residências e empresas. Deixe-nos cuidar do seu conforto.
+            </p>
+            <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 shadow-lg transition-transform transform hover:scale-105">
+                Peça seu Orçamento Grátis
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== Seção de Serviços ===== --><section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nossos Serviços</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Card Serviço 1: Sofás --><div class="bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    <i data-lucide="sofa" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Higienização de Sofás</h3>
+                    <p class="text-gray-600">Limpeza profunda e remoção de manchas para o seu sofá, deixando-o como novo.</p>
+                </div>
+
+                <!-- Card Serviço 2: Cadeiras/Poltronas --><div class="bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    <i data-lucide="armchair" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Cadeiras e Poltronas</h3>
+                    <p class="text-gray-600">Devolva a vida às suas cadeiras e poltronas, eliminando sujeiras e odores.</p>
+                </div>
+
+                <!-- Card Serviço 3: Colchões --><div class="bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    <i data-lucide="bed" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Higienização de Colchões</h3>
+                    <p class="text-gray-600">Elimine ácaros, bactérias e odores, promovendo um sono mais saudável.</p>
+                </div>
+
+                <!-- Card Serviço 4: Carpetes/Tapetes --><div class="bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    <i data-lucide="layers" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-2xl font-semibold mb-3">Carpetes e Tapetes</h3>
+                    <p class="text-gray-600">Limpeza profunda para carpetes e tapetes, realçando suas cores e textura.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Seção "Por que nos Escolher?" (Diferenciais) ===== --><section id="why-us" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nossos Diferenciais</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                
+                <div class="text-center">
+                    <i data-lucide="users" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Equipe Qualificada</h3>
+                    <p class="text-gray-600">Profissionais treinados, de confiança e prontos para entregar o melhor resultado.</p>
+                </div>
+
+                <div class="text-center">
+                    <i data-lucide="spray-can" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Produtos de Qualidade</h3>
+                    <p class="text-gray-600">Usamos produtos específicos e eficazes para cada tipo de estofado, seguros para você e sua família.</p>
+                </div>
+
+                <div class="text-center">
+                    <i data-lucide="clipboard-check" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Atendimento Personalizado</h3>
+                    <p class="text-gray-600">Entendemos sua necessidade e adaptamos nossos serviços para um plano de limpeza perfeito para você.</p>
+                </div>
+
+                <div class="text-center">
+                    <i data-lucide="smile" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Garantia de Satisfação</h3>
+                    <p class="text-gray-600">Nosso compromisso é com sua total satisfação. Se não estiver feliz, nós corrigimos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Seção "Como Funciona" ===== --><section id="how-it-works" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Como Funciona</h2>
+            <div class="flex flex-col md:flex-row justify-around items-start text-center space-y-10 md:space-y-0 md:space-x-8">
+
+                <!-- Passo 1 --><div class="flex-1 max-w-xs mx-auto">
+                    <div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="calendar-plus" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">1. Agende</h3>
+                    <p class="text-gray-600">Entre em contato, descreva seu estofado e agende o melhor dia e horário para a higienização.</p>
+                </div>
+
+                <!-- Passo 2 --><div class="flex-1 max-w-xs mx-auto">
+                    <div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="droplet" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">2. Nós Higienizamos</h3>
+                    <p class="text-gray-600">Nossa equipe chega pontualmente com equipamentos e produtos para uma limpeza profunda e eficaz.</p>
+                </div>
+
+                <!-- Passo 3 --><div class="flex-1 max-w-xs mx-auto">
+                    <div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">3. Você Aproveita</h3>
+                    <p class="text-gray-600">Seu estofado limpo, renovado e cheiroso, pronto para ser usado com conforto e segurança.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Seção de Contato (CTA Final) ===== --><section id="contact" class="py-24 bg-blue-600 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-4">Renove Seus Estofados com a GB Clean!</h2>
+            <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                Entre em contato hoje mesmo para um orçamento grátis e sem compromisso. Preencha o formulário abaixo ou nos chame no WhatsApp!
+            </p>
+            
+            <!-- Formulário de Contato --><form id="contact-form" class="max-w-2xl mx-auto bg-white text-gray-800 p-8 rounded-lg shadow-2xl">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="name" class="block text-left font-semibold mb-2">Nome</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-left font-semibold mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                </div>
+                 <div class="mb-6">
+                    <label for="phone" class="block text-left font-semibold mb-2">Telefone / WhatsApp</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                 <div class="mb-6">
+                    <label for="message" class="block text-left font-semibold mb-2">Mensagem (Descreva seu estofado e tipo de serviço)</label>
+                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 shadow-lg transition-transform transform hover:scale-105">
+                    Enviar Pedido de Orçamento
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== --><footer class="bg-gray-800 text-gray-300 py-16">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12">
+            
+            <!-- Coluna 1: Sobre --><div>
+                <h3 class="font-bold text-2xl text-white mb-4">GB Clean</h3>
+                <p class="text-gray-400 mb-4">
+                    Especialistas em higienização e revitalização de estofados, trazendo saúde e beleza para seus ambientes.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="whatsapp" class="w-6 h-6"></i></a>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Links Rápidos --><div>
+                <h4 class="text-xl font-semibold text-white mb-4">Links Rápidos</h4>
+                <ul class="space-y-2">
+                    <li><a href="#home" class="hover:text-white transition-colors">Início</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Serviços</a></li>
+                    <li><a href="#how-it-works" class="hover:text-white transition-colors">Como Funciona</a></li>
+                    <li><a href="#contact" class="hover:text-white transition-colors">Contato</a></li>
+                </ul>
+            </div>
+
+            <!-- Coluna 3: Contato --><div>
+                <h4 class="text-xl font-semibold text-white mb-4">Entre em Contato</h4>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i data-lucide="map-pin" class="w-5 h-5 mr-3 text-blue-400"></i>
+                        <span>Sua Cidade, Seu Estado</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i data-lucide="phone" class="w-5 h-5 mr-3 text-blue-400"></i>
+                        <span>(XX) 99999-8888</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-blue-400"></i>
+                        <span>contato@gbclean.com</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="text-center text-gray-500 mt-12 border-t border-gray-700 pt-8">
+            &copy; 2025 GB Clean Higienização de Estofados. Todos os direitos reservados.
+        </div>
+    </footer>
+
+
+    <!-- Scripts JS --><script>
+        // Script para inicializar os ícones do Lucide
+        lucide.createIcons();
+
+        // Script para o menu mobile
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = menuBtn.querySelector('i');
+
+        menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            // Alterna o ícone
+            if (menu.classList.contains('hidden')) {
+                menuIcon.setAttribute('data-lucide', 'menu');
+            } else {
+                menuIcon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons(); // Recria o ícone
+        });
+
+        // Fecha o menu ao clicar em um link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                menuIcon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            });
+        });
+
+        // --- NOVO: Script do Formulário WhatsApp ---
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+
+            // 1. Número de destino (sem + ou 0)
+            const targetPhone = "554399685253";
+
+            // 2. Coletar dados do formulário
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            // 3. Montar a mensagem
+            //    Usamos \n para quebra de linha no WhatsApp
+            //    Usamos *texto* para negrito no WhatsApp
+            const waMessage = `Olá, *GB Clean*!\n\nGostaria de um orçamento.\n\n*Nome:* ${name}\n*Telefone/WhatsApp:* ${phone}\n*Email:* ${email}\n\n*Serviço de Interesse:*\n${message}\n\nObrigado!`;
+
+            // 4. Codificar a mensagem para URL
+            const encodedMessage = encodeURIComponent(waMessage);
+
+            // 5. Criar o link do WhatsApp
+            //    'https://wa.me/' é a forma mais robusta (funciona em desktop e mobile)
+            const waURL = `https://wa.me/${targetPhone}?text=${encodedMessage}`;
+
+            // 6. Abrir o WhatsApp em uma nova aba
+            window.open(waURL, '_blank');
+        });
+    </script>
+
+</body>
+</html>
+
