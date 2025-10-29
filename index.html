@@ -11,16 +11,18 @@
     <link rel="preload" href="images/sofalimpo.png" as="image">
     <link rel="preload" href="images/poltrona.png" as="image">
     <link rel="preload" href="images/colchao.png" as="image">
-    <link rel="preload" href="images/carpete.png" as="image">
+    <link rel="preload" href="images/estofado.png" as="image"> 
     <link rel="preload" href="images/gabriel.png" as="image"> 
-    <link rel="preload" href="images/whatsapp.png" as="image"> <!-- Pré-carregamento da imagem do WhatsApp -->
+    <link rel="preload" href="images/whatsapp.png" as="image"> 
+    <!-- Pré-carregamento do som REMOVIDO -->
+    <!-- <link rel="preload" href="squezze.mp3" as="audio"> --> 
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Adiciona um preenchimento suave para as âncoras de navegação */
         html {
-            scroll-padding-top: 96px; /* Altura: h-16 (64px) + py-4 (32px) */
+            scroll-padding-top: 80px; /* Ajustado para a altura do header em mobile/desktop */
         }
         /* Estilo para a animação do logo no cabeçalho */
         .logo-hover-effect {
@@ -100,16 +102,27 @@
             filter: brightness(0) invert(1); /* Torna o logo branco para destaque */
         }
         
-        /* Estilos do Modal de Serviço */
+        /* Estilos do Modal de Serviço (ANIMAÇÃO ATUALIZADA) */
         #service-modal {
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            /* Esta transição controla o fade do overlay */
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out; 
+            opacity: 0;
+            visibility: hidden;
         }
         #service-modal-content {
-            transition: transform 0.3s ease-in-out;
-            transform: scale(0.95);
+            /* Esta transição controla a animação do conteúdo (card) */
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease-out;
+            transform: scale(0.95) translateY(1.5rem); /* Estado inicial: pequeno e 24px abaixo */
+            opacity: 0;
         }
-        #service-modal:not(.hidden) #service-modal-content {
-            transform: scale(1);
+        #service-modal.active { /* Nova classe para estado ativo */
+            opacity: 1;
+            visibility: visible;
+        }
+        #service-modal.active #service-modal-content {
+            /* Estado final (aberto) */
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
 
         /* Animação para o botão flutuante do WhatsApp */
@@ -134,6 +147,9 @@
 </head>
 <body class="font-sans bg-gray-50 text-gray-800">
 
+    <!-- Elemento de Áudio para o loading REMOVIDO -->
+    <!-- <audio id="loading-sound" src="squezze.mp3" loop></audio> -->
+
     
     <!-- Preloader (Tela de Carregamento) -->
     <div id="preloader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-blue-600" style="transition: opacity 0.5s ease; overflow: hidden;">
@@ -152,31 +168,31 @@
     
     <!-- Navegação (Cabeçalho) -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center"> <!-- Padding ajustado -->
             
             <!-- Logo Principal -->
             <a href="#home" class="flex items-center group">
-                <img src="images/logo.png" alt="Logo GB Clean" class="h-16 w-auto logo-hover-effect"> 
+                <img src="images/logo.png" alt="Logo GB Clean" class="h-12 sm:h-16 w-auto logo-hover-effect"> <!-- Tamanho ajustado -->
             </a>
             
             
             <!-- Menu Desktop -->
-            <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-gray-600 hover:text-blue-600 transition-colors">Início</a>
-                <a href="#services" class="text-gray-600 hover:text-blue-600 transition-colors">Serviços</a>
-                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors">Como Funciona</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contato</a>
+            <div class="hidden md:flex space-x-4 lg:space-x-6"> <!-- Espaçamento ajustado -->
+                <a href="#home" class="text-gray-600 hover:text-blue-600 transition-colors px-2 py-1">Início</a>
+                <a href="#services" class="text-gray-600 hover:text-blue-600 transition-colors px-2 py-1">Serviços</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors px-2 py-1">Como Funciona</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors px-2 py-1">Contato</a>
             </div>
             
             
             <!-- Botão CTA Desktop -->
-            <a href="#contact" class="hidden md:block bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-semibold">
+            <a href="#contact" class="hidden md:block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition-colors font-semibold text-sm"> <!-- Padding/Tamanho ajustado -->
                 Agendar Agora
             </a>
 
             
             <!-- Botão Menu Mobile -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none">
+            <button id="mobile-menu-btn" class="md:hidden text-gray-700 focus:outline-none p-2"> <!-- Padding adicionado -->
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
@@ -184,11 +200,11 @@
         
         <!-- Menu Mobile (Oculto por padrão) -->
         <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg pb-4">
-            <a href="#home" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Início</a>
-            <a href="#services" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Serviços</a>
-            <a href="#how-it-works" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Como Funciona</a>
-            <a href="#contact" class="block px-6 py-2 text-gray-600 hover:bg-blue-50">Contato</a>
-            <a href="#contact" class="block mx-6 mt-2 bg-blue-600 text-white text-center px-5 py-2 rounded-lg shadow hover:bg-blue-700">
+            <a href="#home" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Início</a> <!-- Padding Y ajustado -->
+            <a href="#services" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Serviços</a>
+            <a href="#how-it-works" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Como Funciona</a>
+            <a href="#contact" class="block px-6 py-3 text-gray-600 hover:bg-blue-50">Contato</a>
+            <a href="#contact" class="block mx-6 mt-3 mb-2 bg-blue-600 text-white text-center px-5 py-3 rounded-lg shadow hover:bg-blue-700"> <!-- Padding Y ajustado -->
                 Agendar Agora
             </a>
         </div>
@@ -196,10 +212,10 @@
 
     
     <!-- Seção Hero (Início) -->
-    <header id="home" class="relative h-screen flex items-center justify-center text-white text-center">
+    <header id="home" class="relative h-screen flex items-center justify-center text-white text-center px-4"> <!-- Padding X adicionado -->
         
         <!-- Overlay Escuro -->
-        <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+        <div class="absolute inset-0 bg-black opacity-60 z-10"></div> <!-- Opacidade aumentada ligeiramente -->
         
         <!-- Imagem de Fundo -->
         <div class="absolute inset-0 bg-cover bg-center" 
@@ -209,13 +225,13 @@
         
         <!-- Conteúdo de Texto -->
         <div class="relative z-20 p-6 max-w-3xl">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight"> <!-- Tamanhos ajustados -->
                 Seus Estofados Limpos e Renovados com a GB Clean
             </h1>
-            <p class="text-lg md:text-2xl mb-8">
+            <p class="text-lg sm:text-xl md:text-2xl mb-8"> <!-- Tamanhos ajustados -->
                 Especialistas em higienização de estofados para residências e empresas. Deixe-nos cuidar do seu conforto.
             </p>
-            <a href="#contact" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 shadow-lg transition-transform transform hover:scale-105">
+            <a href="#contact" class="bg-blue-600 text-white px-6 py-3 sm:px-8 sm:py-3 rounded-lg text-base sm:text-lg font-semibold hover:bg-blue-700 shadow-lg transition-transform transform hover:scale-105"> <!-- Tamanho e padding ajustados -->
                 Peça seu Orçamento Grátis
             </a>
         </div>
@@ -223,53 +239,53 @@
 
     
     <!-- Seção de Serviços -->
-    <section id="services" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Nossos Serviços</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <section id="services" class="py-16 sm:py-20 bg-white"> <!-- Padding Y ajustado -->
+        <div class="container mx-auto px-4 sm:px-6"> <!-- Padding X ajustado -->
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">Nossos Serviços</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"> <!-- Grid ajustado para mobile e espaçamento -->
                 
                 
                 <!-- Card Sofás -->
-                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                <div class="service-card bg-gray-50 p-6 sm:p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
                      data-title="Higienização de Sofás"
                      data-img="images/sofalimpo.png"
                      data-description="Nosso serviço de higienização de sofás utiliza um método de extração por sucção de alta potência, combinado com produtos fungicidas, bactericidas e acaricidas que eliminam 99.9% dos micro-organismos. Removemos manchas difíceis, odores impregnados e restauramos a cor e a textura originais do seu estofado, garantindo um ambiente mais saudável para sua família.">
-                    <i data-lucide="sofa" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-3">Higienização de Sofás</h3>
-                    <p class="text-gray-600">Limpeza profunda e remoção de manchas para o seu sofá, deixando-o como novo.</p>
+                    <i data-lucide="sofa" class="w-12 h-12 sm:w-16 sm:h-16 text-blue-600 mx-auto mb-4"></i> <!-- Tamanho do ícone ajustado -->
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3">Higienização de Sofás</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Limpeza profunda e remoção de manchas para o seu sofá, deixando-o como novo.</p>
                 </div>
 
                 
                 <!-- Card Cadeiras -->
-                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                <div class="service-card bg-gray-50 p-6 sm:p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
                      data-title="Cadeiras e Poltronas"
                      data-img="images/poltrona.png"
                      data-description="Ideal para escritórios, salas de jantar ou poltronas de leitura. O acúmulo de poeira e suor pode causar alergias e odores. Nosso processo de limpeza profunda remove toda a sujeira visível e invisível, revitalizando o tecido e proporcionando um assento limpo e confortável, seja em sua casa ou no seu ambiente de trabalho.">
-                    <i data-lucide="armchair" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-3">Cadeiras e Poltronas</h3>
-                    <p class="text-gray-600">Devolva a vida às suas cadeiras e poltronas, eliminando sujeiras e odores.</p>
+                    <i data-lucide="armchair" class="w-12 h-12 sm:w-16 sm:h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3">Cadeiras e Poltronas</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Devolva a vida às suas cadeiras e poltronas, eliminando sujeiras e odores.</p>
                 </div>
 
                 
                 <!-- Card Colchões -->
-                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                <div class="service-card bg-gray-50 p-6 sm:p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
                      data-title="Higienização de Colchões"
                      data-img="images/colchao.png"
                      data-description="Passamos um terço da nossa vida dormindo. A higienização de colchões é essencial para a saúde respiratória. Removemos milhões de ácaros, pele morta e bactérias que se acumulam ao longo do tempo. Nosso tratamento anti-ácaro protege seu sono e ajuda a prevenir alergias, rinite e asma.">
-                    <i data-lucide="bed" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-3">Higienização de Colchões</h3>
-                    <p class="text-gray-600">Elimine ácaros, bactérias e odores, promovendo um sono mais saudável.</p>
+                    <i data-lucide="bed" class="w-12 h-12 sm:w-16 sm:h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3">Higienização de Colchões</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Elimine ácaros, bactérias e odores, promovendo um sono mais saudável.</p>
                 </div>
 
                 
-                <!-- Card Carpetes -->
-                <div class="service-card bg-gray-50 p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
-                     data-title="Carpetes e Tapetes"
-                     data-img="images/carpete.png"
-                     data-description="Tapetes e carpetes são filtros naturais do ambiente, acumulando poeira, pólen e sujeira trazida da rua. Nossa limpeza semi-seca penetra profundamente nas fibras, removendo a sujeira encrustada sem encharcar a base. O resultado é um tapete com cores mais vivas, toque macio e livre de odores.">
-                    <i data-lucide="layers" class="w-16 h-16 text-blue-600 mx-auto mb-4"></i>
-                    <h3 class="text-2xl font-semibold mb-3">Carpetes e Tapetes</h3>
-                    <p class="text-gray-600">Limpeza profunda para carpetes e tapetes, realçando suas cores e textura.</p>
+                <!-- Card Estofados de Carro -->
+                <div class="service-card bg-gray-50 p-6 sm:p-8 rounded-lg shadow-lg text-center transform hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer"
+                     data-title="Estofados de Carro"
+                     data-img="images/estofado.png" 
+                     data-description="Limpeza profunda para bancos de carro, removendo manchas, odores e sujeira. Deixamos o interior do seu veículo renovado e mais saudável, ideal para quem passa muito tempo no trânsito, tem crianças ou para motoristas de aplicativo.">
+                    <i data-lucide="car" class="w-12 h-12 sm:w-16 sm:h-16 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-3">Estofados de Carro</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Higienização completa para bancos e interior do seu veículo.</p>
                 </div>
 
             </div>
@@ -277,42 +293,42 @@
     </section>
 
     
-    <!-- Seção de Diferenciais (COM IMAGEM) -->
-    <section id="why-us" class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Nossos Diferenciais</h2>
-            <div class="flex flex-col md:flex-row items-center gap-12">
+    <!-- Seção de Diferenciais -->
+    <section id="why-us" class="py-16 sm:py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 text-gray-800">Nossos Diferenciais</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 
                 <!-- Coluna da Imagem -->
-                <div class="md:w-1/3">
-                    <img src="images/gabriel.png" alt="Gabriel, Fundador da GB Clean" class="rounded-lg shadow-lg w-full max-w-xs mx-auto h-auto object-cover">
+                <div class="md:w-1/3 w-full max-w-sm mx-auto"> <!-- Largura máxima no mobile -->
+                    <img src="images/gabriel.png" alt="Gabriel, Fundador da GB Clean" class="rounded-lg shadow-lg w-full h-auto object-cover">
                 </div>
 
                 <!-- Coluna do Grid de Diferenciais -->
                 <div class="md:w-2/3">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                        <div class="text-center">
-                            <i data-lucide="users" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-2">Equipe Qualificada</h3>
-                            <p class="text-gray-600">Profissionais treinados, de confiança e prontos para entregar o melhor resultado.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+                        <div class="text-center p-4"> <!-- Padding adicionado -->
+                            <i data-lucide="users" class="w-10 h-10 sm:w-12 sm:h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h3 class="text-lg sm:text-xl font-semibold mb-2">Equipe Qualificada</h3>
+                            <p class="text-sm sm:text-base text-gray-600">Profissionais treinados, de confiança e prontos para entregar o melhor resultado.</p>
                         </div>
 
-                        <div class="text-center">
-                            <i data-lucide="spray-can" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-2">Produtos de Qualidade</h3>
-                            <p class="text-gray-600">Usamos produtos específicos e eficazes para cada tipo de estofado, seguros para você e sua família.</p>
+                        <div class="text-center p-4">
+                            <i data-lucide="spray-can" class="w-10 h-10 sm:w-12 sm:h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h3 class="text-lg sm:text-xl font-semibold mb-2">Produtos de Qualidade</h3>
+                            <p class="text-sm sm:text-base text-gray-600">Usamos produtos específicos e eficazes para cada tipo de estofado, seguros para você e sua família.</p>
                         </div>
 
-                        <div class="text-center">
-                            <i data-lucide="clipboard-check" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-2">Atendimento Personalizado</h3>
-                            <p class="text-gray-600">Entendemos sua necessidade e adaptamos nossos serviços para um plano de limpeza perfeito para você.</p>
+                        <div class="text-center p-4">
+                            <i data-lucide="clipboard-check" class="w-10 h-10 sm:w-12 sm:h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h3 class="text-lg sm:text-xl font-semibold mb-2">Atendimento Personalizado</h3>
+                            <p class="text-sm sm:text-base text-gray-600">Entendemos sua necessidade e adaptamos nossos serviços para um plano de limpeza perfeito para você.</p>
                         </div>
 
-                        <div class="text-center">
-                            <i data-lucide="smile" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
-                            <h3 class="text-xl font-semibold mb-2">Garantia de Satisfação</h3>
-                            <p class="text-gray-600">Nosso compromisso é com sua total satisfação. Se não estiver feliz, nós corrigimos.</p>
+                        <div class="text-center p-4">
+                            <i data-lucide="smile" class="w-10 h-10 sm:w-12 sm:h-12 text-blue-600 mx-auto mb-3"></i>
+                            <h3 class="text-lg sm:text-xl font-semibold mb-2">Garantia de Satisfação</h3>
+                            <p class="text-sm sm:text-base text-gray-600">Nosso compromisso é com sua total satisfação. Se não estiver feliz, nós corrigimos.</p>
                         </div>
                     </div>
                 </div>
@@ -322,39 +338,39 @@
 
     
     <!-- Seção Como Funciona -->
-    <section id="how-it-works" class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800">Como Funciona</h2>
+    <section id="how-it-works" class="py-16 sm:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-800">Como Funciona</h2>
             <div class="flex flex-col md:flex-row justify-around items-start text-center space-y-10 md:space-y-0 md:space-x-8">
 
                 
                 <!-- Passo 1 -->
-                <div class="flex-1 max-w-xs mx-auto">
-                    <div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="calendar-plus" class="w-8 h-8"></i>
+                <div class="flex-1 max-w-xs mx-auto px-2"> <!-- Padding X adicionado -->
+                    <div class="bg-blue-600 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="calendar-plus" class="w-7 h-7 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-2">1. Agende</h3>
-                    <p class="text-gray-600">Entre em contato, descreva seu estofado e agende o melhor dia e horário para a higienização.</p>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-2">1. Agende</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Entre em contato, descreva seu estofado e agende o melhor dia e horário para a higienização.</p>
                 </div>
 
                 
                 <!-- Passo 2 -->
-                <div class="flex-1 max-w-xs mx-auto">
-                    <div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="droplet" class="w-8 h-8"></i>
+                <div class="flex-1 max-w-xs mx-auto px-2">
+                    <div class="bg-blue-600 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="droplet" class="w-7 h-7 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-2">2. Nós Higienizamos</h3>
-                    <p class="text-gray-600">Nossa equipe chega pontualmente com equipamentos e produtos para uma limpeza profunda e eficaz.</p>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-2">2. Nós Higienizamos</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Nossa equipe chega pontualmente com equipamentos e produtos para uma limpeza profunda e eficaz.</p>
                 </div>
 
                 
                 <!-- Passo 3 -->
-                <div class="flex-1 max-w-xs mx-auto">
-                    <div class="bg-blue-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                <div class="flex-1 max-w-xs mx-auto px-2">
+                    <div class="bg-blue-600 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="sparkles" class="w-7 h-7 sm:w-8 sm:h-8"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-2">3. Você Aproveita</h3>
-                    <p class="text-gray-600">Seu estofado limpo, renovado e cheiroso, pronto para ser usado com conforto e segurança.</p>
+                    <h3 class="text-xl sm:text-2xl font-semibold mb-2">3. Você Aproveita</h3>
+                    <p class="text-sm sm:text-base text-gray-600">Seu estofado limpo, renovado e cheiroso, pronto para ser usado com conforto e segurança.</p>
                 </div>
 
             </div>
@@ -363,36 +379,36 @@
 
     
     <!-- Seção de Contato (CTA) -->
-    <section id="contact" class="py-24 bg-blue-600 text-white">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Renove Seus Estofados com a GB Clean!</h2>
-                <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+    <section id="contact" class="py-16 sm:py-24 bg-blue-600 text-white"> <!-- Padding Y ajustado -->
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4">Renove Seus Estofados com a GB Clean!</h2>
+                <p class="text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-2xl mx-auto">
                     Entre em contato hoje mesmo para um orçamento grátis e sem compromisso. Preencha o formulário abaixo ou nos chame no WhatsApp!
                 </p>
             </div>
             
-            <!-- Formulário de Contato (agora centralizado) -->
-            <form id="contact-form" class="max-w-2xl mx-auto bg-white text-gray-800 p-8 rounded-lg shadow-2xl">
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <!-- Formulário de Contato -->
+            <form id="contact-form" class="max-w-2xl mx-auto bg-white text-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                     <div>
-                        <label for="name" class="block text-left font-semibold mb-2">Nome</label>
-                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <label for="name" class="block text-left font-semibold mb-2 text-sm sm:text-base">Nome</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base" required>
                     </div>
                     <div>
-                        <label for="email" class="block text-left font-semibold mb-2">Email</label>
-                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <label for="email" class="block text-left font-semibold mb-2 text-sm sm:text-base">Email</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base" required>
                     </div>
                 </div>
-                 <div class="mb-6">
-                    <label for="phone" class="block text-left font-semibold mb-2">Telefone / WhatsApp</label>
-                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                 <div class="mb-4 sm:mb-6">
+                    <label for="phone" class="block text-left font-semibold mb-2 text-sm sm:text-base">Telefone / WhatsApp</label>
+                    <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base">
                 </div>
-                 <div class="mb-6">
-                    <label for="message" class="block text-left font-semibold mb-2">Mensagem (Descreva seu estofado e tipo de serviço)</label>
-                    <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                 <div class="mb-4 sm:mb-6">
+                    <label for="message" class="block text-left font-semibold mb-2 text-sm sm:text-base">Mensagem (Descreva seu estofado e tipo de serviço)</label>
+                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base" required></textarea> <!-- Rows reduzido -->
                 </div>
-                <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 shadow-lg transition-transform transform hover:scale-105">
+                <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg text-base sm:text-lg font-semibold hover:bg-blue-700 shadow-lg transition-transform transform hover:scale-105"> <!-- Padding ajustado -->
                     Enviar Pedido de Orçamento
                 </button>
             </form>
@@ -401,28 +417,28 @@
 
     
     <!-- Rodapé -->
-    <footer class="bg-gray-900 text-gray-300 py-12"> <!-- Padding diminuído de py-16 para py-12 -->
-        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+    <footer class="bg-gray-900 text-gray-300 py-10 sm:py-12"> <!-- Padding Y ajustado -->
+        <div class="container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             
             
             <!-- Coluna 1: Logo e Social -->
-            <div>
-                <img src="images/logo.png" alt="Logo GB Clean" class="h-24 w-auto mb-4 filter brightness-0 invert"> 
-                <p class="text-gray-400 mb-4">
+            <div class="mb-6 md:mb-0">
+                <img src="images/logo.png" alt="Logo GB Clean" class="h-20 sm:h-24 w-auto mb-4 filter brightness-0 invert"> 
+                <p class="text-sm text-gray-400 mb-4">
                     Especialistas em higienização e revitalização de estofados, trazendo saúde e beleza para seus ambientes.
                 </p>
                 <div class="flex space-x-4">
-                    <!-- Link do Facebook REMOVIDO -->
-                    <a href="https://www.instagram.com/oficial.gbcleanhigienizacao/" target="_blank" class="text-gray-400 hover:text-pink-500 transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
-                    <a href="https://wa.me/5543991005975" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors"><i data-lucide="whatsapp" class="w-6 h-6"></i></a>
+                    
+                    <a href="https://www.instagram.com/oficial.gbcleanhigienizacao/" target="_blank" class="text-gray-400 hover:text-pink-500 transition-colors"><i data-lucide="instagram" class="w-5 h-5 sm:w-6 sm:h-6"></i></a>
+                    <a href="https://wa.me/5543991005975" target="_blank" class="text-gray-400 hover:text-green-500 transition-colors"><i data-lucide="whatsapp" class="w-5 h-5 sm:w-6 sm:h-6"></i></a>
                 </div>
             </div>
 
             
             <!-- Coluna 2: Links Rápidos -->
-            <div>
-                <h4 class="text-xl font-semibold text-white mb-4">Links Rápidos</h4>
-                <ul class="space-y-2">
+            <div class="mb-6 md:mb-0">
+                <h4 class="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Links Rápidos</h4>
+                <ul class="space-y-1 sm:space-y-2 text-sm">
                     <li><a href="#home" class="hover:text-blue-500 hover:underline transition-colors">Início</a></li>
                     <li><a href="#services" class="hover:text-blue-500 hover:underline transition-colors">Serviços</a></li>
                     <li><a href="#how-it-works" class="hover:text-blue-500 hover:underline transition-colors">Como Funciona</a></li>
@@ -432,38 +448,38 @@
 
             
             <!-- Coluna 3: Nossos Serviços -->
-            <div>
-                <h4 class="text-xl font-semibold text-white mb-4">Nossos Serviços</h4>
-                <ul class="space-y-2">
+            <div class="mb-6 md:mb-0">
+                <h4 class="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Nossos Serviços</h4>
+                <ul class="space-y-1 sm:space-y-2 text-sm">
                     <li><a href="#services" class="hover:text-blue-500 hover:underline transition-colors">Higienização de Sofás</a></li>
                     <li><a href="#services" class="hover:text-blue-500 hover:underline transition-colors">Cadeiras e Poltronas</a></li>
                     <li><a href="#services" class="hover:text-blue-500 hover:underline transition-colors">Higienização de Colchões</a></li>
-                    <li><a href="#services" class="hover:text-blue-500 hover:underline transition-colors">Carpetes e Tapetes</a></li>
+                    <li><a href="#services" class="hover:text-blue-500 hover:underline transition-colors">Estofados de Carro</a></li>
                 </ul>
             </div>
 
             
             <!-- Coluna 4: Contato -->
             <div>
-                <h4 class="text-xl font-semibold text-white mb-4">Entre em Contato</h4>
-                <ul class="space-y-3">
-                    <li class="flex items-center">
-                        <i data-lucide="map-pin" class="w-5 h-5 mr-3 text-blue-500"></i>
+                <h4 class="text-lg sm:text-xl font-semibold text-white mb-3 sm:mb-4">Entre em Contato</h4>
+                <ul class="space-y-2 sm:space-y-3 text-sm">
+                    <li class="flex items-start"> <!-- items-start para alinhar melhor -->
+                        <i data-lucide="map-pin" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-500 mt-1"></i> <!-- mt-1 para alinhar ícone -->
                         <span>Cambará, Paraná</span>
                     </li>
                     <li class="flex items-center">
-                        <i data-lucide="phone" class="w-5 h-5 mr-3 text-blue-500"></i>
+                        <i data-lucide="phone" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-500"></i>
                         <span>+55 43 99100-5975</span>
                     </li>
                     <li class="flex items-center">
-                        <i data-lucide="mail" class="w-5 h-5 mr-3 text-blue-500"></i>
+                        <i data-lucide="mail" class="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-500"></i>
                         <span>contato@gbclean.com.br</span>
                     </li>
                 </ul>
             </div>
 
         </div>
-        <div class="text-center text-gray-500 mt-12 border-t border-gray-700 pt-8">
+        <div class="text-center text-xs sm:text-sm text-gray-500 mt-8 sm:mt-12 border-t border-gray-700 pt-6 sm:pt-8">
             &copy; 2025 GB Clean Higienização de Estofados. Todos os direitos reservados.
         </div>
     </footer>
@@ -471,39 +487,39 @@
     
     <!-- Botão Flutuante do WhatsApp (com imagem) -->
     <a href="https://wa.me/5543991005975" target="_blank" 
-       class="whatsapp-float fixed bottom-6 right-6 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center" 
+       class="whatsapp-float fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center" 
        aria-label="Fale conosco no WhatsApp">
-        <img src="images/whatsapp.png" alt="WhatsApp Icon" class="w-12 h-12"> 
+        <img src="images/whatsapp.png" alt="WhatsApp Icon" class="w-10 h-10 sm:w-12 sm:h-12"> <!-- Tamanho ajustado -->
     </a>
 
     
     <!-- Modal de Detalhes do Serviço -->
-    <div id="service-modal" class="hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
+    <div id="service-modal" class="fixed inset-0 z-[60] flex items-center justify-center p-4"> <!-- Removido hidden inicial -->
         
         <!-- Overlay do Modal -->
         <div id="service-modal-overlay" class="absolute inset-0 bg-black bg-opacity-75"></div>
         
         
         <!-- Conteúdo do Modal -->
-        <div id="service-modal-content" class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl overflow-hidden">
+        <div id="service-modal-content" class="relative bg-white rounded-lg shadow-xl w-full max-w-lg sm:max-w-2xl overflow-hidden mx-auto"> <!-- Tamanho ajustado -->
             
-            <!-- Imagem do Modal (classes re-adicionadas) -->
-            <img id="modal-img" src="https://placehold.co/600x400/2563EB/ffffff?text=Servico" alt="Detalhe do Serviço" class="w-full h-64 object-cover">
+            <!-- Imagem do Modal -->
+            <img id="modal-img" src="https://placehold.co/600x400/2563EB/ffffff?text=Servico" alt="Detalhe do Serviço" class="w-full h-48 sm:h-64 object-cover"> <!-- Altura ajustada -->
             
             
             <!-- Texto do Modal -->
-            <div class="p-6">
-                <h3 id="modal-title" class="text-3xl font-bold text-gray-900 mb-4">Título do Serviço</h3>
-                <p id="modal-description" class="text-gray-700 mb-6 leading-relaxed">Descrição detalhada do serviço...</p>
-                <a href="#contact" id="modal-cta-btn" class="inline-block w-full text-center bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
+            <div class="p-4 sm:p-6">
+                <h3 id="modal-title" class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Título do Serviço</h3>
+                <p id="modal-description" class="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">Descrição detalhada do serviço...</p>
+                <a href="#contact" id="modal-cta-btn" class="inline-block w-full text-center bg-blue-600 text-white px-5 py-2 sm:px-6 sm:py-3 rounded-lg text-base sm:text-lg font-semibold hover:bg-blue-700 transition-colors"> <!-- Padding e texto ajustados -->
                     Pedir Orçamento
                 </a>
             </div>
             
             
             <!-- Botão de Fechar -->
-            <button id="service-modal-close" class="absolute top-4 right-4 text-gray-600 bg-white/70 p-1 rounded-full hover:text-gray-900">
-                <i data-lucide="x" class="w-6 h-6"></i>
+            <button id="service-modal-close" class="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-600 bg-white/70 p-1 rounded-full hover:text-gray-900"> <!-- Posição ajustada -->
+                <i data-lucide="x" class="w-5 h-5 sm:w-6 sm:h-6"></i>
             </button>
         </div>
     </div>
@@ -545,51 +561,51 @@
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault(); // Impede o envio padrão do formulário
 
-            // 1. Número de destino (sem + ou 0)
-            const targetPhone = "5543991005975"; // <-- NÚMERO ATUALIZADO
-
-            // 2. Coletar dados do formulário
+            const targetPhone = "5543991005975"; 
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             const message = document.getElementById('message').value;
-
-            // 3. Montar a mensagem
             const waMessage = `Olá, *GB Clean*!\n\nGostaria de um orçamento.\n\n*Nome:* ${name}\n*Telefone/WhatsApp:* ${phone}\n*Email:* ${email}\n\n*Serviço de Interesse:*\n${message}\n\nObrigado!`;
-
-            // 4. Codificar a mensagem para URL
             const encodedMessage = encodeURIComponent(waMessage);
-
-            // 5. Criar o link do WhatsApp
             const waURL = `https://wa.me/${targetPhone}?text=${encodedMessage}`;
-
-            // 6. Abrir o WhatsApp em uma nova aba
             window.open(waURL, '_blank');
         });
 
         // --- Script do Preloader ---
         window.onload = function() {
             const preloader = document.getElementById('preloader');
-            if (preloader) {
+            // const loadingSound = document.getElementById('loading-sound'); // Áudio removido
+            
+            if (preloader /*&& loadingSound*/) { // Condição do áudio removida
                 const LOADING_DURATION = 4000; // 4 segundos
-                const FADE_OUT_DURATION = 500; // 0.5 segundos (corresponde ao CSS transition)
+                const FADE_OUT_DURATION = 500; // 0.5 segundos 
 
-                // 1. Espera a duração total do carregamento (4 segundos)
+                // Tenta tocar o som REMOVIDO
+                // loadingSound.play().catch(error => console.log("Autoplay do som bloqueado pelo navegador.")); 
+
                 setTimeout(() => {
-                    
-                    // 2. Inicia o fade out
+                    // Para o som REMOVIDO
+                    // loadingSound.pause();
+                    // loadingSound.currentTime = 0; // Reseta o tempo do áudio
+
                     preloader.style.opacity = '0';
-                    
-                    // 3. Remove o elemento da DOM após o fade out completo
                     setTimeout(() => {
                         preloader.style.display = 'none';
                     }, FADE_OUT_DURATION); 
-
                 }, LOADING_DURATION); 
+            } else if (preloader) {
+                 // Fallback
+                 setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500); 
+                }, 4000); 
             }
         };
 
-        // --- Script do Modal de Serviços ---
+        // --- Script do Modal de Serviços (ANIMAÇÃO CORRIGIDA) ---
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('service-modal');
             const modalOverlay = document.getElementById('service-modal-overlay');
@@ -604,47 +620,39 @@
 
             // Função para abrir o modal
             const openModal = (card) => {
-                // Preenche o modal com os dados do card
                 modalTitle.textContent = card.dataset.title;
                 modalDescription.textContent = card.dataset.description;
                 modalImg.src = card.dataset.img;
                 
-                // Exibe o modal
-                modal.classList.remove('hidden');
-                modal.style.visibility = 'visible';
-                modal.style.opacity = '1';
-                lucide.createIcons(); // Recria o ícone 'x' se necessário
+                // Aplica a classe 'active' para iniciar a animação CSS
+                modal.classList.add('active'); 
+                
+                // Força reflow para garantir a animação de ABERTURA
+                // Isso faz o navegador recalcular os estilos antes da transição
+                void modal.offsetWidth; 
+                
+                lucide.createIcons(); 
             };
 
             // Função para fechar o modal
             const closeModal = () => {
-                modal.style.opacity = '0';
-                modal.style.visibility = 'hidden';
-                // Adiciona a classe 'hidden' após a transição
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                }, 300); // 300ms = 0.3s (duração da transição)
+                // Remove a classe 'active' para reverter a animação CSS
+                modal.classList.remove('active'); 
+                // A transição CSS cuida do fade out e da visibilidade
             };
 
             // Adiciona eventos aos cards
             serviceCards.forEach(card => {
-                // 1. Abrir com clique
                 card.addEventListener('click', () => {
-                    clearTimeout(hoverTimer); // Cancela o timer de hover se houver
+                    clearTimeout(hoverTimer); 
                     openModal(card);
                 });
-
-                // 2. Abrir com hover de 2 segundos
                 card.addEventListener('mouseenter', () => {
-                    // Limpa qualquer timer anterior
                     clearTimeout(hoverTimer);
-                    // Inicia um novo timer
                     hoverTimer = setTimeout(() => {
                         openModal(card);
-                    }, 2000); // 2000ms = 2 segundos
+                    }, 2000); 
                 });
-
-                // 3. Cancelar timer ao tirar o mouse
                 card.addEventListener('mouseleave', () => {
                     clearTimeout(hoverTimer);
                 });
@@ -653,10 +661,8 @@
             // Eventos para fechar o modal
             modalCloseBtn.addEventListener('click', closeModal);
             modalOverlay.addEventListener('click', closeModal);
-            // Fecha o modal e rola para o contato
             modalCtaBtn.addEventListener('click', closeModal); 
 
-            // Chama o Lucide icons uma vez que o DOM está pronto (para o botão flutuante)
             lucide.createIcons();
         });
 
